@@ -44,7 +44,6 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
 }
 
 .task_title {
@@ -57,9 +56,5 @@
 }
 
 .save_btn {
-  background-color: lightblue;
-}
-
-.remove_btn {
-  background-color: pink;
+  color: lightblue;
 }
