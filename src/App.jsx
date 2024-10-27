@@ -11,6 +11,8 @@ function App() {
 
   const [newTask, setNewTask] = useState('');
 
+  const [filter, setFilter] = useState('all');
+
   const handleInputChange = (e) => {setNewTask(e.target.value);};
 
   const handleSave = (e) => {
@@ -30,6 +32,12 @@ function App() {
     setPreTaskList(prevTasksStatus => prevTasksStatus.map(task => task.id === taskId ? { ...task, completed: !task.completed } : task ));
   };
 
+  const filteredTasks = preTaskList.filter(task => {
+    if (filter === 'completed') return task.completed;
+    if (filter === 'pending') return !task.completed;
+    return true;
+  })
+
   return (
     <>
       <header>
@@ -39,7 +47,12 @@ function App() {
         <input type='text' className='input_box' placeholder='New task...' value={newTask} onChange={handleInputChange}/>
         <button type='submit'className='save_btn'>Save</button>
       </form>
-      <TaskList taskRemain={preTaskList} onRemove={handleRemove} onToggle={handleToggleCheckbox} />
+      <div>
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('completed')}>Completed</button>
+        <button onClick={() => setFilter('pending')}>Pending</button>
+      </div>
+      <TaskList taskRemain={filteredTasks} onRemove={handleRemove} onToggle={handleToggleCheckbox} />
     </>
   )
 }
